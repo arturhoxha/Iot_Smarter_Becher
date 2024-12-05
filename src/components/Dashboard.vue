@@ -20,14 +20,14 @@ export default {
   data() {
     return {
       currentConsumed: 0,
-      totalConsumed: 0,
+      totalConsumed: null,
       dailyGoal: 2000,
       showReminder: false,
     };
   },
   computed: {
     progressPercentage() {
-      return ((this.totalConsumed / this.dailyGoal) * 100).toFixed(1);
+      return ((this.currentConsumed / this.dailyGoal) * 100).toFixed(1);
     },
   },
   methods: {
@@ -35,8 +35,9 @@ export default {
       try {
         // Azure Static Web App URL
         const response = await axios.get('https://thankful-ocean-0345cfc1e.4.azurestaticapps.net/api/liveStatus');
-        this.currentConsumed = response.data.nowconsumed;
-        this.totalConsumed = response.data.consumed;
+        const data = response.data.latestData;
+        this.currentConsumed = data.consumed || 0;
+        this.totalConsumed = data.timestamp || 'N/A';
         this.showReminder = response.data.reminder;
       } catch (error) {
         console.error('Fehler beim Abrufen des Live-Status:', error);
