@@ -1,13 +1,18 @@
 const { app } = require('@azure/functions');
 
-app.http('httpTrigger1', {
-    methods: ['GET', 'POST'],
-    authLevel: 'anonymous',
+app.http('liveStatus', {
+    methods: ['GET'],
+    authLevel: 'anonymous', // Optional: Für Authentifizierung anpassen
     handler: async (request, context) => {
-        context.log(`Http function processed request for url "${request.url}"`);
+        context.log('API: /liveStatus aufgerufen.');
 
-        const name = request.query.get('name') || await request.text() || 'world';
-
-        return { body: `Hello, ${name}!` };
+        // Beispiel-Daten (kann später dynamisch sein)
+        return {
+            body: {
+                weight: 500, // Aktuelles Gewicht des Glases
+                consumed: 1200, // Bereits getrunken (in ml)
+                reminder: false, // Erinnerung notwendig
+            }
+        };
     }
 });

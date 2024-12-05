@@ -17,13 +17,12 @@
 import axios from 'axios';
 
 export default {
-  name: 'Dashboard',
   data() {
     return {
-      currentWeight: 0, // Gewicht des Glases
-      totalConsumed: 0, // Heute getrunken
-      dailyGoal: 2000,  // Tagesziel
-      showReminder: false, // Erinnerung, falls Nutzer lange nicht trinkt
+      currentWeight: 0,
+      totalConsumed: 0,
+      dailyGoal: 2000,
+      showReminder: false,
     };
   },
   computed: {
@@ -34,7 +33,8 @@ export default {
   methods: {
     async fetchLiveStatus() {
       try {
-        const response = await axios.get('/api/live-status');
+        // Azure Static Web App URL
+        const response = await axios.get('https://thankful-ocean-0345cfc1e.4.azurestaticapps.net/api/liveStatus');
         this.currentWeight = response.data.weight;
         this.totalConsumed = response.data.consumed;
         this.showReminder = response.data.reminder;
@@ -44,10 +44,10 @@ export default {
     },
   },
   mounted() {
-    // Initial Daten laden
+    // API-Daten beim Laden abrufen
     this.fetchLiveStatus();
 
-    // Daten alle 10 Sekunden aktualisieren
+    // Alle 10 Sekunden aktualisieren
     setInterval(this.fetchLiveStatus, 10000);
   },
 };
