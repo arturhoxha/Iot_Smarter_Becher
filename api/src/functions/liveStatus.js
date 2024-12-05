@@ -9,7 +9,7 @@ app.http('liveStatus', {
         // Beispiel-Daten (kann später dynamisch sein)
         return {
             jsonBody: {
-                weight: 500, // Aktuelles Gewicht des Glases
+                nowconsumed: 500, // Aktuelles Gewicht des Glases
                 consumed: 1200, // Bereits getrunken (in ml)
                 reminder: false, // Erinnerung notwendig
             }

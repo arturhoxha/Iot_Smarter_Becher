@@ -2,7 +2,7 @@
   <div class="dashboard">
     <h1>Smarter Becher Dashboard</h1>
     <div class="status">
-      <p>📦 <strong>Gewicht des Glases:</strong> {{ currentWeight }} g</p>
+      <p>📦 <strong>Zuletzt getrunken:</strong> {{ currentConsumed }} ml</p>
       <p>💧 <strong>Heute getrunken:</strong> {{ totalConsumed }} ml</p>
       <p>🎯 <strong>Tagesziel:</strong> {{ dailyGoal }} ml</p>
       <p>📊 <strong>Fortschritt:</strong> {{ progressPercentage }}%</p>
@@ -19,7 +19,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      currentWeight: 0,
+      currentConsumed: 0,
       totalConsumed: 0,
       dailyGoal: 2000,
       showReminder: false,
@@ -35,7 +35,7 @@ export default {
       try {
         // Azure Static Web App URL
         const response = await axios.get('https://thankful-ocean-0345cfc1e.4.azurestaticapps.net/api/liveStatus');
-        this.currentWeight = response.data.weight;
+        this.currentConsumed = response.data.nowconsumed;
         this.totalConsumed = response.data.consumed;
         this.showReminder = response.data.reminder;
       } catch (error) {
