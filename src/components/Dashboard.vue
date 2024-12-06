@@ -1,6 +1,5 @@
 <script>
 import axios from 'axios';
-
 export default {
   data() {
     return {
@@ -41,25 +40,36 @@ export default {
   },
 };
 </script>
-
 <template>
   <div class="dashboard">
     <h1>Smarter Becher Dashboard</h1>
     <div class="status">
-      <p>📦 <strong>Zuletzt getrunken:</strong> {{ lastDrink }} ml um {{ formatTime(timestamp) }}</p>
-      <p>💧 <strong>Heute getrunken:</strong> {{ totalAmount }} ml</p>
-      <p>🎯 <strong>Tagesziel:</strong> {{ dailyGoal }} ml</p>
-      <p>📊 <strong>Fortschritt:</strong> {{ progressPercentage }}%</p>
+      <div class="status-item">
+        <span class="label">📦 <strong>Zuletzt getrunken:</strong></span>
+        <span class="value">{{ lastDrink }} ml um {{ formatTime(timestamp) }}</span>
+      </div>
+      <div class="status-item">
+        <span class="label">💧 <strong>Heute getrunken:</strong></span>
+        <span class="value">{{ totalAmount }} ml</span>
+      </div>
+      <div class="status-item">
+        <span class="label">🎯 <strong>Tagesziel:</strong></span>
+        <span class="value">{{ dailyGoal }} ml</span>
+      </div>
+      <div class="status-item">
+        <span class="label">📊 <strong>Fortschritt:</strong></span>
+        <span class="value">{{ progressPercentage }}%</span>
+      </div>
     </div>
     <div v-if="showReminder" class="reminder">
       ⚠️ <strong>Bitte trinke etwas Wasser!</strong>
     </div>
   </div>
 </template>
-
 <style scoped>
 .dashboard {
-  min-width: 400px;
+  min-width: 320px;
+  width: 100%;
   font-family: Arial, sans-serif;
   padding: 20px;
   max-width: 600px;
@@ -69,21 +79,41 @@ export default {
   background: #ffffff;
   color: #333333;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 }
 
 .dashboard h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
   color: #333333;
+  margin-bottom: 20px;
 }
 
-.status p {
-  font-size: 1.2rem;
-  margin: 10px 0;
+.status-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.status-item:last-child {
+  border-bottom: none;
+}
+
+.label {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.value {
+  font-size: 1.2rem;
+  padding-left: 28px;
+  white-space: nowrap;
 }
 
 .reminder {
