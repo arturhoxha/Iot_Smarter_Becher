@@ -57,49 +57,6 @@ export default {
   </div>
 </template>
 
-<script>
-import axios from 'axios';
-
-export default {
-  data() {
-    return {
-      lastDrink: 0,         // Die zuletzt getrunkene Menge (Differenz)
-      totalAmount: 0,       // Gesamtmenge heute
-      timestamp: null,      // Zeitstempel der letzten Messung
-      dailyGoal: 2000,
-      showReminder: false,
-    };
-  },
-  computed: {
-    progressPercentage() {
-      return ((this.totalAmount / this.dailyGoal) * 100).toFixed(1);
-    },
-  },
-  methods: {
-    formatTime(timestamp) {
-      if (!timestamp) return 'N/A';
-      const date = new Date(timestamp);
-      return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
-    },
-    async fetchLiveStatus() {
-      try {
-        const response = await axios.get('https://thankful-ocean-0345cfc1e.4.azurestaticapps.net/api/liveStatus');
-        const data = response.data.latestData;
-        this.lastDrink = data.differenz || 0;
-        this.totalAmount = data.getrunken || 0;
-        this.timestamp = data.timestamp;
-        this.showReminder = response.data.reminder;
-      } catch (error) {
-        console.error('Fehler beim Abrufen des Live-Status:', error);
-      }
-    },
-  },
-  mounted() {
-    this.fetchLiveStatus();
-    setInterval(this.fetchLiveStatus, 10000);
-  },
-};
-</script>
 <style scoped>
 .dashboard {
   font-family: Arial, sans-serif;
