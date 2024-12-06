@@ -41,45 +41,56 @@ export default {
 };
 </script>
 <template>
-  <div class="dashboard">
-    <h1>Smarter Becher Dashboard</h1>
-    <div class="status">
-      <div class="status-item">
-        <span class="label">📦 <strong>Zuletzt getrunken:</strong></span>
-        <span class="value">{{ lastDrink }} ml um {{ formatTime(timestamp) }}</span>
+  <div class="container">
+    <div class="dashboard">
+      <h1>Smarter Becher Dashboard</h1>
+      <div class="status">
+        <div class="status-item">
+          <span class="label">📦 <strong>Zuletzt getrunken:</strong></span>
+          <span class="value">{{ lastDrink }} ml um {{ formatTime(timestamp) }}</span>
+        </div>
+        <div class="status-item">
+          <span class="label">💧 <strong>Heute getrunken:</strong></span>
+          <span class="value">{{ totalAmount }} ml</span>
+        </div>
+        <div class="status-item">
+          <span class="label">🎯 <strong>Tagesziel:</strong></span>
+          <span class="value">{{ dailyGoal }} ml</span>
+        </div>
+        <div class="status-item">
+          <span class="label">📊 <strong>Fortschritt:</strong></span>
+          <span class="value">{{ progressPercentage }}%</span>
+        </div>
       </div>
-      <div class="status-item">
-        <span class="label">💧 <strong>Heute getrunken:</strong></span>
-        <span class="value">{{ totalAmount }} ml</span>
+      <div v-if="showReminder" class="reminder">
+        ⚠️ <strong>Bitte trinke etwas Wasser!</strong>
       </div>
-      <div class="status-item">
-        <span class="label">🎯 <strong>Tagesziel:</strong></span>
-        <span class="value">{{ dailyGoal }} ml</span>
-      </div>
-      <div class="status-item">
-        <span class="label">📊 <strong>Fortschritt:</strong></span>
-        <span class="value">{{ progressPercentage }}%</span>
-      </div>
-    </div>
-    <div v-if="showReminder" class="reminder">
-      ⚠️ <strong>Bitte trinke etwas Wasser!</strong>
     </div>
   </div>
 </template>
 <style scoped>
-.dashboard {
-  min-width: 320px;
+.container {
   width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.dashboard {
+  width: 100%;
+  max-width: 600px;
   font-family: Arial, sans-serif;
   padding: 20px;
-  max-width: 600px;
-  margin: auto;
   border: 1px solid #ddd;
   border-radius: 10px;
   background: #ffffff;
   color: #333333;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .dashboard h1 {
@@ -88,6 +99,7 @@ export default {
   text-align: center;
   color: #333333;
   margin-bottom: 20px;
+  padding: 0 10px;
 }
 
 .status-item {
@@ -107,13 +119,11 @@ export default {
   align-items: center;
   gap: 8px;
   font-size: 1.1rem;
-  white-space: nowrap;
 }
 
 .value {
   font-size: 1.2rem;
   padding-left: 28px;
-  white-space: nowrap;
 }
 
 .reminder {
