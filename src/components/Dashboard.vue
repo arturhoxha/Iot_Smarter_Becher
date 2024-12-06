@@ -1,18 +1,3 @@
-<template>
-  <div class="dashboard">
-    <h1>Smarter Becher Dashboard</h1>
-    <div class="status">
-      <p>📦 <strong>Zuletzt getrunken:</strong> {{ lastDrink }} ml um {{ formatTime(timestamp) }}</p>
-      <p>💧 <strong>Heute getrunken:</strong> {{ totalAmount }} ml</p>
-      <p>🎯 <strong>Tagesziel:</strong> {{ dailyGoal }} ml</p>
-      <p>📊 <strong>Fortschritt:</strong> {{ progressPercentage }}%</p>
-    </div>
-    <div v-if="showReminder" class="reminder">
-      ⚠️ <strong>Bitte trinke etwas Wasser!</strong>
-    </div>
-  </div>
-</template>
-
 <script>
 import axios from 'axios';
 
