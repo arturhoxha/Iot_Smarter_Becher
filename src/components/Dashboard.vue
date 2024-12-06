@@ -59,6 +59,7 @@ export default {
 
 <style scoped>
 .dashboard {
+  min-width: 400px;
   font-family: Arial, sans-serif;
   padding: 20px;
   max-width: 600px;
